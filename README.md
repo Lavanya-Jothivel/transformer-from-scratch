@@ -71,17 +71,13 @@ This makes the internal Transformer operations explicit and easier to study.
 
 ---
 
-## Scaled Dot-Product Attention
+### Scaled Dot-Product Attention
 
-The attention mechanism follows:
+The attention mechanism is defined as:
 
 $$
-\operatorname{Attention}(Q,K,V)
-=
-\operatorname{softmax}
-\left(
-\frac{QK^T}{\sqrt{d_k}}
-\right)V
+\mathrm{Attention}(Q,K,V) =
+\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
 
 The scaling factor prevents the query-key dot products from becoming excessively large as the key dimension increases.
@@ -111,21 +107,13 @@ Self-attention does not inherently encode token order, so sinusoidal positional 
 The implementation follows:
 
 $$
-PE(pos,2i)
-=
-\sin
-\left(
-\frac{pos}{10000^{2i/d_{model}}}
-\right)
+PE(pos, 2i) =
+\sin\left(\frac{pos}{10000^{2i/d_{\mathrm{model}}}}\right)
 $$
 
 $$
-PE(pos,2i+1)
-=
-\cos
-\left(
-\frac{pos}{10000^{2i/d_{model}}}
-\right)
+PE(pos, 2i+1) =
+\cos\left(\frac{pos}{10000^{2i/d_{\mathrm{model}}}}\right)
 $$
 
 ---
