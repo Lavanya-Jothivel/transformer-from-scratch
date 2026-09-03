@@ -357,8 +357,8 @@ transformer-project/
 Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd transformer-project
+git clone https://github.com/Lavanya-Jothivel/transformer-from-scratch.git
+cd transformer-from-scratch
 ```
 
 Create a virtual environment:
