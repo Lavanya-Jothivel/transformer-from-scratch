@@ -208,6 +208,12 @@ Label smoothing of `0.1` is used during training.
 
 Gradient clipping is also applied as an additional stability measure in this scaled implementation.
 
+### Training Curve
+
+The scaled Transformer was trained for two epochs. The following plot shows the observed training and validation loss.
+
+![Training Curve](results/figures/training_curve.png)
+
 ---
 
 ## Autoregressive Inference
@@ -253,6 +259,10 @@ The experiments keep `d_model = 128` and the remaining configuration fixed.
 
 Because the query, key, value, and output projections retain the same overall dimensions, changing the number of heads does not substantially change the parameter count.
 
+#### Experimental Result
+
+![Attention Head Ablation](results/figures/head_ablation.png)
+
 ### Positional Encoding
 
 Two configurations were compared:
@@ -262,6 +272,10 @@ Two configurations were compared:
 
 This experiment investigates how explicitly representing token order affects translation performance.
 
+#### Experimental Result
+
+![Positional Encoding Ablation](results/figures/positional_encoding_ablation.png)
+
 ### Learning-Rate Warmup
 
 The following warmup durations were compared:
@@ -269,6 +283,10 @@ The following warmup durations were compared:
 - 400 steps
 - 1000 steps
 - 4000 steps
+
+#### Experimental Result
+
+![Warmup Ablation](results/figures/warmup_ablation.png)
 
 ---
 
@@ -282,6 +300,18 @@ The notebook visualizes learned attention patterns for:
 - Decoder cross-attention
 
 Cross-attention plots show how generated German decoder positions distribute attention across English source tokens.
+
+### Encoder Self-Attention
+
+The following heatmap visualizes one attention head from the encoder. It shows how individual source tokens attend to other tokens in the input sequence.
+
+![Encoder Attention](results/attention_maps/encoder_attention_map.png)
+
+### Decoder Cross-Attention
+
+The decoder cross-attention visualization shows how generated target tokens attend to the encoded source sentence during translation.
+
+![Decoder Cross Attention](results/attention_maps/cross_attention_map.png)
 
 ---
 
@@ -309,13 +339,26 @@ transformer-project/
 │   └── 01_transformer_from_scratch.ipynb
 │
 ├── experiments/
+│   ├── head_ablation_results.csv
+│   ├── positional_encoding_ablation.csv
+│   ├── warmup_ablation_results.csv
+│   ├── paper_vs_scaled_reproduction.csv
+│   └── experiment_summary.csv
 │
 ├── results/
 │   ├── figures/
+│   │   ├── training_curve.png
+│   │   ├── head_ablation.png
+│   │   ├── positional_encoding_ablation.png
+│   │   └── warmup_ablation.png
+│   │
 │   └── attention_maps/
+│       ├── encoder_attention_map.png
+│       └── cross_attention_map.png
 │
 ├── requirements.txt
 ├── .gitignore
+├── example.py
 └── README.md
 ```
 
@@ -350,6 +393,23 @@ pip install -r requirements.txt
 
 ---
 
+## Quick Test
+
+Run the small Transformer example:
+
+```bash
+python example.py
+```
+
+Expected output:
+
+```text
+Transformer ran successfully!
+Output shape: torch.Size([1, 4, 120])
+```
+
+---
+
 ## Run Tests
 
 Run:
@@ -358,7 +418,7 @@ Run:
 python -m pytest tests -v
 ```
 
-The tests validate:
+The test suite validates:
 
 - Scaled dot-product attention
 - Attention mask behavior
