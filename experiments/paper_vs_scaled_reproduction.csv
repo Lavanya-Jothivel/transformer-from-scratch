@@ -1,0 +1,11 @@
+Component,Original Paper,Our Reproduction
+Dataset,WMT English-German,OPUS Books EN-DE subset
+d_model,512,128
+Attention Heads,8,4
+d_ff,2048,512
+Encoder Layers,6,3
+Decoder Layers,6,3
+Dropout,0.1,0.1
+Warmup,4000,4000
+Label Smoothing,0.1,0.1
+Hardware,Multi-GPU training,Google Colab T4
